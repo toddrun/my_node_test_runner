@@ -5,9 +5,13 @@ var Mocha = require('mocha'),
 var opts = {'reporter': 'spec'};
 var mocha = new Mocha(opts);
 
-exports.runTests = function(directory) {
+exports.runTests = function(directory, testToRun) {
 
-    add_test_files(mocha, directory);
+    if (testToRun) {
+        mocha.addFile(directory + '/' + testToRun);
+    } else {
+        add_test_files(mocha, directory);
+    }
 
     mocha.run(function(failures){
         process.on('exit', function () {
